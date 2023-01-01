@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -11,6 +11,9 @@ function App() {
     password: z.string().min(4, { message: "Required" }),
     confirmPassword: z.string().min(4, { message: "Required" }),
   });
+
+  const firstName = useRef();
+  console.log(firstName.current);
 
   const {
     register,
@@ -29,7 +32,7 @@ function App() {
     <div className="register-form">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          <label>Full Name</label>
+          <label ref={firstName} onClick={() => firstName.current.style.backgroundColor = "red"}>Full Name</label>
           <input
             name="fullname"
             type="text"
